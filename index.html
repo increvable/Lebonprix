@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>lebonprix</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap">
+<style>
+:root{color-scheme:light;--bg:#fff;--card:#f8f5ff;--ink:#1f1633;--mute:#6b6084;--line:#ddd2f5;--accent:#6d28d9;--accent-ink:#fff;--good:#1c7a45;--mid:#a76a00;--bad:#b3261e;--good-bg:#e1f3e8;--mid-bg:#fbefd5;--bad-bg:#fbe3e1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media not all{:root:not([data-theme="light"]){color-scheme:dark;--bg:#150f24;--card:#201734;--ink:#f1ecfb;--mute:#a99dc4;--line:#352a50;--accent:#a78bfa;--accent-ink:#1a0b3d;--good:#6fd39a;--mid:#f0b85a;--bad:#ff8f87;--good-bg:#173626;--mid-bg:#3a2e14;--bad-bg:#3d1c1a}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#150f24;--card:#201734;--ink:#f1ecfb;--mute:#a99dc4;--line:#352a50;--accent:#a78bfa;--accent-ink:#1a0b3d;--good:#6fd39a;--mid:#f0b85a;--bad:#ff8f87;--good-bg:#173626;--mid-bg:#3a2e14;--bad-bg:#3d1c1a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Archivo",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:26px;line-height:1.15;font-weight:800;margin:8px 0 6px}
+h2{font-size:18px;font-weight:800;margin:0 0 12px}
+.lead{color:var(--mute);margin:0 0 18px;max-width:60ch}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:14px;color:var(--mute);margin-bottom:4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-height:44px}
+textarea{min-height:100px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+[hidden]{display:none!important}
+button,.btn{font:inherit;font-weight:600;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-height:44px;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent;width:100%;margin-top:14px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center}
+.stats div{background:var(--bg);border-radius:10px;padding:10px 2px}
+.stats b{display:block;font-size:17px}
+.stats span{font-size:12px;color:var(--mute)}
+.hero{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.hero .big{font-size:44px;line-height:1.05;font-weight:800;margin:2px 0 4px;font-variant-numeric:tabular-nums}
+.hero p{margin:0;opacity:.92}
+.verdict{border-radius:12px;padding:12px 14px;font-weight:600;margin:12px 0}
+.verdict.good{background:var(--good-bg);color:var(--good)}
+.verdict.mid{background:var(--mid-bg);color:var(--mid)}
+.verdict.bad{background:var(--bad-bg);color:var(--bad)}
+.line{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.line:last-child{border-bottom:0}
+.note{font-size:14px;color:var(--mute);margin:10px 0 0}
+#home{position:relative;overflow:hidden;min-height:100dvh;padding:28px 18px 40px;text-align:center;display:flex;flex-direction:column;justify-content:center;max-width:820px;margin:0 auto}
+.orbs i{position:absolute;border-radius:50%;filter:blur(50px);opacity:.35;background:#8b5cf6;pointer-events:none;animation:drift 12s ease-in-out infinite alternate}
+.orbs i:nth-child(1){width:260px;height:260px;top:-60px;left:-80px}
+.orbs i:nth-child(2){width:300px;height:300px;bottom:-90px;right:-100px;background:#c4b5fd;animation-delay:-5s}
+@keyframes drift{to{transform:translate3d(40px,30px,0) scale(1.15)}}
+.cubewrap{perspective:600px;margin:0 auto 18px;width:56px;height:56px}
+.cube{width:56px;height:56px;position:relative;transform-style:preserve-3d;animation:spin 9s linear infinite}
+.cube i{position:absolute;inset:0;display:grid;place-items:center;font:800 26px Archivo,sans-serif;font-style:normal;color:#fff;background:linear-gradient(135deg,#6d28d9,#a78bfa);border:1px solid rgba(255,255,255,.55);opacity:.93}
+.cube i:nth-child(1){transform:translateZ(28px)}.cube i:nth-child(2){transform:rotateY(90deg) translateZ(28px)}.cube i:nth-child(3){transform:rotateY(180deg) translateZ(28px)}.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(28px)}.cube i:nth-child(5){transform:rotateX(90deg) translateZ(28px)}.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(28px)}
+@keyframes spin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+.brand{font-size:clamp(40px,11vw,64px);line-height:1;font-weight:800;margin:0;letter-spacing:-.02em;position:relative}
+.brand span{color:var(--accent)}
+.tag{color:var(--mute);margin:10px auto 0;max-width:34ch;position:relative}
+.hint{color:var(--mute);font-size:14px;margin-top:22px;position:relative}
+.stage{perspective:1100px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin:28px 0 0;position:relative}
+.c3d{all:unset;box-sizing:border-box;cursor:pointer;display:block;transform-style:preserve-3d;opacity:0;text-align:left}
+.c3d:focus-visible .face{box-shadow:0 0 0 4px var(--card),0 0 0 7px var(--accent)}
+.face{display:flex;flex-direction:column;gap:6px;padding:22px 20px;min-height:160px;border-radius:20px;color:#fff;background:linear-gradient(145deg,#8b5cf6,#5b21b6);box-shadow:0 24px 40px -18px rgba(91,33,182,.7),0 2px 0 rgba(255,255,255,.35) inset;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .15s ease-out;transform-style:preserve-3d}
+.c3d:nth-child(2) .face{background:linear-gradient(145deg,#a855f7,#6d28d9)}
+.c3d:nth-child(3) .face{background:linear-gradient(145deg,#7c3aed,#4c1d95)}
+.face .ico{font-size:34px;transform:translateZ(42px)}.face b{font-size:22px;transform:translateZ(30px)}.face small{font-size:14px;opacity:.92;transform:translateZ(20px)}
+.in .c3d{animation:enter 1s cubic-bezier(.2,.9,.2,1) forwards,float 5s ease-in-out 1.3s infinite}
+.in .c3d:nth-child(2){animation-delay:.18s,1.5s}.in .c3d:nth-child(3){animation-delay:.36s,1.7s}
+.leaving .c3d:not(.picked){animation:dropout .6s ease-in forwards}
+.leaving .c3d.picked{animation:pick .75s ease-in-out forwards}
+@keyframes enter{from{opacity:0;transform:translateZ(-700px) rotateY(100deg) rotateX(20deg)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:1;transform:translateY(-9px) rotateX(3deg)}}
+@keyframes dropout{from{opacity:1}to{opacity:0;transform:translateY(80px) translateZ(-400px) rotateX(60deg)}}
+@keyframes pick{0%{opacity:1;transform:none}60%{opacity:1;transform:translateZ(200px) scale(1.12) rotateY(180deg)}100%{opacity:0;transform:translateZ(500px) scale(1.6) rotateY(360deg)}}
+#app{transform-origin:top center}
+#app.enter{animation:appin .65s cubic-bezier(.2,.9,.2,1) both}
+#app.exit{animation:appout .45s ease-in both}
+@keyframes appin{from{opacity:0;transform:perspective(1200px) rotateX(-30deg) translateY(40px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes appout{to{opacity:0;transform:perspective(1200px) rotateX(25deg) scale(.94)}}
+.back{margin-bottom:12px}
+.brand span{background:linear-gradient(90deg,#6d28d9,#a78bfa,#6d28d9);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 4s linear infinite}
+@keyframes sheen{to{background-position:200% 50%}}
+.hint{animation:blink 2.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.45}}
+.face{position:relative}
+.c3d:nth-child(n) .face{background-size:200% 200%;animation:sheen2 7s ease-in-out infinite}
+@keyframes sheen2{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.face::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--gx,30%) var(--gy,0%),rgba(255,255,255,.38),transparent 55%)}
+.face::before{content:"→";position:absolute;right:16px;bottom:14px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:18px;background:rgba(255,255,255,.22);box-shadow:0 0 0 1px rgba(255,255,255,.35) inset;transform:translateZ(36px);transition:transform .25s,background .25s}
+.c3d:hover .face::before{transform:translateZ(46px) translateX(4px);background:rgba(255,255,255,.38)}
+.c3d:hover .face{box-shadow:0 34px 50px -18px rgba(91,33,182,.85),0 2px 0 rgba(255,255,255,.4) inset}
+.seg{position:relative;gap:0;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.seg::before{content:"";position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/3);border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#5b21b6);box-shadow:0 8px 18px -8px rgba(91,33,182,.8);transform:translateX(calc(var(--i,0)*100%));transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+.seg button{position:relative;z-index:1;background:transparent;border-color:transparent;color:var(--ink);transition:color .3s}
+.seg button[aria-pressed="true"]{background:transparent;color:#fff;border-color:transparent}
+button.primary{position:relative;overflow:hidden;background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 12px 24px -10px rgba(91,33,182,.85);transition:transform .2s,box-shadow .2s}
+button.primary::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:shine 3.4s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-60%}100%{left:140%}}
+button.primary:hover{transform:translateY(-2px);box-shadow:0 16px 28px -10px rgba(91,33,182,.95)}
+button.primary:active,.back:active{transform:scale(.97)}
+.back{position:relative;overflow:hidden;border-radius:999px;border-color:var(--accent);color:var(--accent);background:var(--card);transition:transform .2s}
+.back:hover{transform:translateX(-3px)}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+.back .rip{background:rgba(109,40,217,.25)}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(109,40,217,.16)}
+input,select,textarea{transition:box-shadow .2s,border-color .2s}
+.invalid{border-color:var(--bad)!important;background:var(--bad-bg)!important;box-shadow:0 0 0 4px rgba(179,38,30,.14)!important;animation:shake .35s}
+label.bad{color:var(--bad);font-weight:600}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#app.enter>section{animation:rise .6s cubic-bezier(.2,.9,.2,1) .15s both}
+@keyframes rise{from{opacity:0;transform:translateY(24px) rotateX(-12deg)}to{opacity:1;transform:none}}
+.reveal{animation:pop .6s cubic-bezier(.2,.9,.2,1) both}
+@keyframes pop{from{opacity:0;transform:perspective(900px) translateY(16px) rotateX(-10deg) scale(.95)}to{opacity:1;transform:none}}
+.reveal .stats div{animation:rise .5s cubic-bezier(.2,.9,.2,1) both}
+.reveal .stats div:nth-child(2){animation-delay:.1s}.reveal .stats div:nth-child(3){animation-delay:.2s}
+.c3d:nth-child(1){--c1:#8b5cf6;--c2:#5b21b6}.c3d:nth-child(2){--c1:#a855f7;--c2:#6d28d9}.c3d:nth-child(3){--c1:#7c3aed;--c2:#4c1d95}
+.c3d:nth-child(n) .face{border:2px solid transparent;padding:20px 20px 22px;gap:4px;background:linear-gradient(145deg,var(--c1),var(--c2)) padding-box,linear-gradient(135deg,#fff,#d8cbfb 28%,#7c3aed 60%,#f3eeff) border-box;background-size:200% 200%,100% 100%;box-shadow:0 32px 50px -20px rgba(91,33,182,.8),0 10px 22px -8px rgba(30,10,70,.4),0 2px 0 rgba(255,255,255,.65) inset,0 -14px 24px -10px rgba(20,5,60,.45) inset}
+.c3d:nth-child(n):hover .face{box-shadow:0 40px 60px -20px rgba(91,33,182,.95),0 14px 26px -8px rgba(30,10,70,.45),0 2px 0 rgba(255,255,255,.75) inset,0 -14px 24px -10px rgba(20,5,60,.45) inset}
+.c3d::after{content:"";display:block;height:16px;margin:16px 12% 0;border-radius:50%;background:radial-gradient(ellipse at center,rgba(91,33,182,.4),transparent 70%);filter:blur(5px)}
+.gloss{position:absolute;left:2px;right:2px;top:2px;height:46%;border-radius:18px 18px 50% 50%/18px 18px 26% 26%;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,.02));pointer-events:none}
+.streak{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.streak::before{content:"";position:absolute;top:-20%;left:-70%;width:45%;height:140%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);animation:streak 4.8s ease-in-out infinite}
+.c3d:nth-child(2) .streak::before{animation-delay:.8s}.c3d:nth-child(3) .streak::before{animation-delay:1.6s}
+@keyframes streak{0%,60%{left:-70%}100%{left:130%}}
+.medal{width:66px;height:66px;margin-bottom:6px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,255,255,.42),rgba(255,255,255,.08));box-shadow:0 12px 20px -6px rgba(30,10,70,.6),0 1px 0 rgba(255,255,255,.75) inset,0 0 0 1px rgba(255,255,255,.4);transform:translateZ(50px)}
+.medal svg{width:40px;height:40px;filter:drop-shadow(0 4px 6px rgba(30,10,70,.55))}
+.face b{font-size:24px;text-shadow:0 2px 10px rgba(30,10,70,.5)}
+#wipe{position:fixed;inset:0;z-index:50;pointer-events:none;visibility:hidden;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#a78bfa,#6d28d9 55%,#4c1d95);clip-path:circle(0 at var(--x,50%) var(--y,50%))}
+#wipe.on{visibility:visible;animation:wipein .65s cubic-bezier(.7,0,.3,1) forwards}
+#wipe.out{animation:wipeout .5s ease forwards}
+@keyframes wipein{to{clip-path:circle(150vmax at var(--x,50%) var(--y,50%))}}
+@keyframes wipeout{from{clip-path:circle(150vmax at var(--x,50%) var(--y,50%));opacity:1}to{clip-path:circle(150vmax at var(--x,50%) var(--y,50%));opacity:0}}
+#home.leaving{animation:homeout .55s cubic-bezier(.5,0,.8,.4) forwards}
+@keyframes homeout{to{opacity:0;transform:perspective(1000px) scale(.9) rotateX(8deg);filter:blur(6px)}}
+#home.leaving .c3d,#home.leaving .c3d:not(.picked),#home.leaving .c3d.picked{animation:none;opacity:1}
+.c3d:nth-child(4){--c1:#9f7aea;--c2:#553c9a}
+.in .c3d:nth-child(4){animation-delay:.54s,1.9s}
+.c3d:nth-child(4) .streak::before{animation-delay:2.4s}
+#carnet{max-width:640px;margin:0 auto;padding:20px 16px 48px;transform-origin:top center}
+#carnet.enter{animation:appin .65s cubic-bezier(.2,.9,.2,1) both}
+#carnet.exit{animation:appout .45s ease-in both}
+#carnet.enter>section{animation:rise .6s cubic-bezier(.2,.9,.2,1) .15s both}
+.card2{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--bg)}
+.card2 .line{border:0;padding:0 0 2px;align-items:center}
+.card2 .grid{grid-template-columns:1fr auto;align-items:center}
+.card2 .line button{min-height:36px;padding:0 12px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div id="wipe"></div>
+<div id="home">
+<div class="orbs"><i></i><i></i></div>
+<div class="cubewrap"><div class="cube"><i>€</i><i>€</i><i>€</i><i>€</i><i>€</i><i>€</i></div></div>
+<h1 class="brand">lebon<span>prix</span></h1>
+<p class="tag">Le bon prix pour acheter, vendre et négocier une voiture d’occasion.</p>
+<div class="stage">
+<button class="c3d" type="button" data-m="m"><span class="face"><span class="gloss"></span><span class="streak"></span><span class="medal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="8" y="26" width="7" height="14" rx="2" fill="#fff" fill-opacity=".55"/><rect x="20.5" y="18" width="7" height="22" rx="2" fill="#fff" fill-opacity=".8"/><rect x="33" y="9" width="7" height="31" rx="2" fill="#fff"/><path d="M8 20l11-8 9 5 12-10" stroke="#fcd34d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="7" r="3" fill="#fcd34d"/></svg></span><b>Marché</b><small>Le prix moyen d’un véhicule</small></span></button>
+<button class="c3d" type="button" data-m="v"><span class="face"><span class="gloss"></span><span class="streak"></span><span class="medal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M25 5H39a4 4 0 014 4V23a4 4 0 01-1.2 2.8L25.8 41.8a4 4 0 01-5.6 0L6.2 27.8a4 4 0 010-5.6L22.2 6.2A4 4 0 0125 5Z" fill="#fff" fill-opacity=".95"/><circle cx="35" cy="13" r="3" fill="#6d28d9"/><text x="23" y="30" font-family="Archivo,sans-serif" font-size="17" font-weight="800" fill="#6d28d9" text-anchor="middle">€</text></svg></span><b>Je vends</b><small>À quel prix vendre mon véhicule</small></span></button>
+<button class="c3d" type="button" data-m="a"><span class="face"><span class="gloss"></span><span class="streak"></span><span class="medal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="21" cy="21" r="12" fill="#fff" fill-opacity=".25" stroke="#fff" stroke-width="4"/><path d="M15 21.5l4.5 4.5L28 17" stroke="#fcd34d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 30l11 11" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg></span><b>Annonce</b><small>Bon prix ? À combien négocier</small></span></button>
+<button class="c3d" type="button" data-m="c"><span class="face"><span class="gloss"></span><span class="streak"></span><span class="medal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="10" y="6" width="28" height="36" rx="5" fill="#fff" fill-opacity=".92"/><rect x="10" y="6" width="7" height="36" rx="3" fill="#6d28d9" fill-opacity=".35"/><path d="M22 16h11M22 23h11M22 30h7" stroke="#6d28d9" stroke-width="3" stroke-linecap="round"/><circle cx="37" cy="36" r="7" fill="#fcd34d"/><path d="M33.5 36l2.5 2.5 4.5-5" stroke="#4c1d95" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Carnet</b><small>Suivre mes achats et mes marges</small></span></button>
+</div>
+<p class="hint">Touche une option pour commencer</p>
+</div>
+<main id="app" hidden>
+<button class="back" id="back" type="button">← Accueil</button>
+<h1>lebon<span style="color:var(--accent)">prix</span></h1>
+<p class="lead">Le bon prix pour acheter, vendre et négocier une voiture d’occasion.</p>
+<div class="seg"><button id="bm" type="button" aria-pressed="true">Marché</button><button id="bv" type="button" aria-pressed="false">Je vends</button><button id="ba" type="button" aria-pressed="false">Annonce</button></div>
+
+<section>
+<h2>Le véhicule</h2>
+<div class="grid">
+<div class="full"><label for="veh">Modèle exact</label><input id="veh" placeholder="Ex. Volkswagen Golf VIII 2.0 TSI 320 R 4MOTION DSG7"></div>
+<div><label for="an">Année</label><input id="an" type="number" inputmode="numeric" placeholder="2021"></div>
+<div><label for="km">Kilométrage</label><input id="km" type="number" inputmode="numeric" placeholder="70000"></div>
+<div><label for="etat">État</label><select id="etat"><option>Excellent</option><option selected>Bon</option><option>Moyen</option><option>À réparer</option></select></div>
+<div><label for="col">Couleur</label><input id="col" placeholder="Ex. Bleu"></div>
+<div class="full" data-a><label for="lien">Lien de l’annonce</label><input id="lien" type="url" placeholder="https://"></div>
+<div data-a><label for="prix">Prix affiché (€)</label><input id="prix" type="number" inputmode="numeric" placeholder="29000"></div>
+<div data-a><label for="cible">Marge visée (€)</label><input id="cible" type="number" inputmode="numeric" value="1500"></div>
+<div data-a><label for="remise">Remise en état (€)</label><input id="remise" type="number" inputmode="numeric" value="300"></div>
+<div data-a><label for="autres">Papiers, contrôle, autres (€)</label><input id="autres" type="number" inputmode="numeric" value="230"></div>
+<div data-a><label for="fees">Frais de vente (%)</label><input id="fees" type="number" inputmode="decimal" value="2"></div>
+<div data-a><label for="strat">Revente</label><select id="strat"><option value="0.95">Rapide (−5 %)</option><option value="1" selected>Au marché</option><option value="1.04">Ambitieux (+4 %)</option></select></div>
+<div class="full" data-v hidden><label for="opts">Options et équipements</label><textarea id="opts" placeholder="Ex. pack AMG, toutes options, vitres teintées, toit ouvrant, entretien à jour"></textarea></div>
+<div class="full"><label for="paste">Annonces comparables (rend l’estimation plus fiable)</label><textarea id="paste" placeholder="Colle ici le texte d’une page d’annonces du même modèle"></textarea></div>
+</div>
+<button class="primary" id="go" type="button">Estimer le marché</button>
+<p class="note" id="msg"></p>
+</section>
+
+<section id="res" hidden></section>
+<p class="note" style="text-align:center">lebonprix · estimations indicatives, sans valeur contractuelle · par Incre</p>
+</main>
+<main id="carnet" hidden>
+<button class="back" id="back2" type="button">← Accueil</button>
+<h1>Carnet <span style="color:var(--accent)">de ventes</span></h1>
+<p class="lead">Suis tes achats-reventes : stock, marge et rentabilité. Les données restent sur cet appareil et sont effacées si tu vides les données du navigateur.</p>
+<section>
+<h2>Ajouter une voiture</h2>
+<div class="grid">
+<div class="full"><label for="cm">Modèle</label><input id="cm" placeholder="Ex. Renault Clio 4, 2018"></div>
+<div><label for="ca">Prix d’achat (€)</label><input id="ca" type="number" inputmode="numeric"></div>
+<div><label for="cf">Frais (€)</label><input id="cf" type="number" inputmode="numeric" value="0"></div>
+</div>
+<button class="primary" id="cadd" type="button">Ajouter au stock</button>
+<p class="note" id="cmsg"></p>
+</section>
+<section><h2>Bilan</h2><div class="stats" id="cstats"></div></section>
+<section><h2>Mes voitures</h2><div id="clist"></div></section>
+</main>
+<script>
+(function(){
+var $=function(id){return document.getElementById(id)};
+var mode="m",market=null,sample=null;
+function fmt(n){return n==null||!isFinite(n)?"–":Math.round(n).toLocaleString("fr-FR")+" €"}
+function num(id){var v=parseFloat($(id).value);return isFinite(v)?v:0}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function median(a){var n=a.length;if(!n)return null;return n%2?a[(n-1)/2]:(a[n/2-1]+a[n/2])/2}
+function setMode(m){
+ mode=m;$("bm").setAttribute("aria-pressed",String(m==="m"));$("bv").setAttribute("aria-pressed",String(m==="v"));$("ba").setAttribute("aria-pressed",String(m==="a"));
+ document.querySelectorAll("[data-a]").forEach(function(e){e.hidden=m!=="a"});
+ document.querySelectorAll("[data-v]").forEach(function(e){e.hidden=m!=="v"});
+ document.querySelectorAll(".invalid").forEach(function(e){e.classList.remove("invalid")});document.querySelectorAll("label.bad").forEach(function(e){e.classList.remove("bad")});document.querySelector(".seg").style.setProperty("--i",m==="m"?0:m==="v"?1:2);$("go").textContent=m==="a"?"Évaluer l’annonce":(m==="v"?"Estimer le prix de revente":"Estimer le marché");render();
+}
+$("bm").onclick=function(){setMode("m")};$("bv").onclick=function(){setMode("v")};$("ba").onclick=function(){setMode("a")};
+function prices(t){
+ var re=/(\d{1,3}(?:[ \u00a0\u202f.]\d{3})+|\d{4,6})\s*€/g,m,o=[],lv=null,li=-999;
+ while((m=re.exec(t))){var v=parseInt(m[1].replace(/[^\d]/g,""),10);if(v===lv&&m.index-li<80){li=m.index;continue}lv=v;li=m.index;if(v>=1500)o.push(v)}
+ o.sort(function(a,b){return a-b});
+ var md=median(o);if(!md)return[];
+ return o.filter(function(v){return v>=md*0.5&&v<=md*1.8});
+}
+function reqIds(){var r=["veh","an","km","etat","col","paste"];if(mode==="v")r.push("opts");if(mode==="a")r.push("lien","prix","cible","remise","autres","fees","strat");return r}
+function check(ids){
+ var ok=true;
+ ids.forEach(function(id){
+  var el=$(id),empty=String(el.value).trim()==="",lb=document.querySelector('label[for="'+id+'"]');
+  el.classList.remove("invalid");if(empty){void el.offsetWidth;el.classList.add("invalid");ok=false}
+  if(lb)lb.classList.toggle("bad",empty);
+ });
+ return ok;
+}
+document.addEventListener("input",function(e){
+ var el=e.target;
+ if(el.classList&&el.classList.contains("invalid")&&String(el.value).trim()!==""){
+  el.classList.remove("invalid");var lb=el.id?document.querySelector('label[for="'+el.id+'"]'):null;if(lb)lb.classList.remove("bad");
+ }
+});
+async function run(){
+ if(!check(reqIds())){$("msg").textContent="Remplis les champs en rouge.";return}
+ var q=$("veh").value.trim();
+ if(!q){$("msg").textContent="Indique le modèle du véhicule.";return}
+ var p=prices($("paste").value);
+ if(p.length>=3){
+  var mean=p.reduce(function(a,b){return a+b},0)/p.length;
+  market={bas:p[0],moy:mean,med:median(p),haut:p[p.length-1],src:"Calculé sur "+p.length+" annonces collées.",conf:null};
+  $("msg").textContent="";render();pop();return;
+ }
+ if(!sample){$("msg").textContent="Colle au moins 3 annonces comparables pour obtenir une estimation.";return}
+ $("go").disabled=true;$("msg").textContent="Estimation en cours…";
+ try{
+  var r=await sample.json("Tu es expert du marché de l’occasion automobile en France. Estime le prix de vente réaliste, en euros TTC, du véhicule suivant. Modèle : "+q+". Année : "+($("an").value||"inconnue")+". Kilométrage : "+($("km").value||"inconnu")+" km. État : "+$("etat").value+". Couleur : "+($("col").value||"non précisée")+". Options et équipements : "+($("opts").value.trim()||"non précisés")+". Prends-les en compte sans les surestimer. Tu n’as pas accès aux annonces en direct : donne ton meilleur ordre de grandeur. Réponds UNIQUEMENT en JSON : {\"bas\":nombre,\"moyen\":nombre,\"haut\":nombre,\"confiance\":\"faible\"|\"moyenne\"|\"bonne\",\"remarque\":\"une phrase neutre sur ce qui fait varier le prix (finition, entretien), sans parler de toi ni de l’accès aux annonces\"}.",{modelTier:"default",cache:false});
+  var N=function(v){return parseFloat(String(v).replace(/[^\d.,]/g,"").replace(",","."))};if(!r||!(N(r.moyen)>0))throw {code:"invalid_json"};
+  market={bas:N(r.bas),moy:N(r.moyen),med:N(r.moyen),haut:N(r.haut),src:"Estimation de lebonprix, sans données en direct.",conf:r.confiance,rem:r.remarque};
+  $("msg").textContent="";
+ }catch(e){market=null;var c=e&&e.code,M={not_granted:"Autorise l’appli à utiliser Claude quand la fenêtre s’affiche, puis réessaie.",session_expired:"Reconnecte-toi à Claude puis réessaie.",sampling_disabled:"Claude n’est pas disponible sur ce compte.",rate_limited:"Trop de demandes ou limite d’utilisation atteinte. Réessaie plus tard."};$("msg").textContent=(M[c]||"L’estimation n’a pas abouti. Réessaie, ou colle des annonces comparables.")+(c?" (code : "+c+")":"")}
+ $("go").disabled=false;render();if(market)pop();
+}
+function render(){
+ var R=$("res");
+ if(!market){R.hidden=true;return}
+ R.hidden=false;
+ var h='<h2>'+(mode==="v"?"Prix de revente de ton véhicule":"Prix du marché")+'</h2><div class="stats"><div><b>'+fmt(market.bas)+'</b><span>Bas</span></div><div><b>'+fmt(market.moy)+'</b><span>Moyen</span></div><div><b>'+fmt(market.haut)+'</b><span>Haut</span></div></div><p class="note">'+esc(market.src)+(market.conf?" Confiance : "+esc(market.conf)+". ":" ")+esc(market.rem||"")+(market.conf?" Ce n’est pas un prix constaté : vérifie avec de vraies annonces.":"")+'</p>';
+ if(mode==="v"){h+='<div style="margin-top:14px"><div class="line"><span>Vendre vite (environ −5 %)</span><b>'+fmt(market.med*0.95)+'</b></div><div class="line"><span>Au prix du marché</span><b>'+fmt(market.med)+'</b></div><div class="line"><span>Viser plus haut (environ +4 %)</span><b>'+fmt(market.med*1.04)+'</b></div></div><p class="note">Le prix de vente réel dépend de l’état, de l’entretien et de la négociation.</p>'+((!market.conf&&$("opts").value.trim())?'<p class="note">Les options ne comptent pas dans un calcul sur annonces collées : compare avec des annonces équipées de la même façon.</p>':"")}
+ if(mode==="a"){
+  var rev=market.med*parseFloat($("strat").value),costs=num("remise")+num("autres"),fees=rev*num("fees")/100,cible=num("cible"),maxA=rev-fees-costs-cible,prix=num("prix");
+  h+='<div class="hero" style="border-radius:12px;padding:16px;margin-top:14px"><p>Prix d’achat maximum pour '+fmt(cible)+' de marge</p><div class="big">'+fmt(Math.max(maxA,0))+'</div><p>Revente visée : '+fmt(rev)+'</p></div>';
+  if(prix>0){
+   var m=rev-fees-costs-prix,roi=m/(prix+costs)*100,cls,txt;
+   if(prix<=maxA){cls="good";txt="Prix convenable : tu peux acheter à "+fmt(prix)+" et atteindre ta marge."}
+   else if(m>0){cls="mid";txt="Trop cher pour ta marge. Négocie à "+fmt(maxA)+" maximum ("+fmt(prix-maxA)+" de moins, soit "+((prix-maxA)/prix*100).toFixed(1).replace(".",",")+" %)."}
+   else{cls="bad";txt="À éviter à ce prix. Il faudrait descendre à "+fmt(maxA)+" ("+fmt(prix-maxA)+" de moins) pour que ça vaille le coup."}
+   h+='<div class="verdict '+cls+'">'+txt+'</div>';
+   if(prix>maxA)h+='<p class="note">Pour ouvrir la négociation, propose autour de '+fmt(maxA*0.95)+', en gardant '+fmt(maxA)+' comme limite.</p>';
+   h+=[["Revente visée",fmt(rev)],["Prix affiché",fmt(prix)],["Coûts et frais",fmt(costs+fees)],["Marge nette à ce prix",fmt(m)],["Rentabilité",roi.toFixed(1).replace(".",",")+" %"]].map(function(l){return '<div class="line"><span>'+l[0]+'</span><b>'+l[1]+'</b></div>'}).join("");
+  }
+  var l=$("lien").value.trim();
+  if(/^https?:\/\//i.test(l))h+='<p class="note"><a target="_blank" rel="noopener" href="'+esc(l)+'">Ouvrir l’annonce</a></p>';
+  if($("etat").value==="À réparer"||$("etat").value==="Moyen")h+='<p class="note">État '+esc($("etat").value.toLowerCase())+' : ajoute le coût des réparations dans « Remise en état ».</p>';
+ }
+ R.innerHTML=h;
+}
+$("go").onclick=run;
+["prix","cible","remise","autres","fees","strat","etat","lien"].forEach(function(id){$(id).addEventListener("input",render)});
+if(window.claude&&claude.use){claude.use("sample").then(function(s){if(s)sample=s}).catch(function(){})}
+var home=$("home"),app=$("app"),RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches,D=RM?0:750;
+var wipe=$("wipe");
+function wipeAt(e,el){
+ var r=el.getBoundingClientRect(),x=e&&e.clientX?e.clientX:r.left+r.width/2,y=e&&e.clientY?e.clientY:r.top+r.height/2;
+ wipe.style.setProperty("--x",x+"px");wipe.style.setProperty("--y",y+"px");
+ wipe.classList.remove("out");wipe.classList.add("on");
+}
+function wipeEnd(){wipe.classList.add("out");setTimeout(function(){wipe.classList.remove("on","out")},500)}
+function openTool(m,card,e){
+ if(m==="c"){openCarnet(card,e);return}
+ setMode(m);wipeAt(e,card);home.classList.add("leaving");
+ setTimeout(function(){home.hidden=true;app.hidden=false;app.classList.remove("exit");app.classList.add("enter");window.scrollTo(0,0);wipeEnd()},D);
+}
+document.querySelectorAll(".c3d").forEach(function(c){
+ c.onclick=function(e){openTool(c.getAttribute("data-m"),c,e)};
+ var f=c.firstElementChild;
+ c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect();f.style.setProperty("--ry",((e.clientX-r.left)/r.width-.5)*18+"deg");f.style.setProperty("--rx",-((e.clientY-r.top)/r.height-.5)*18+"deg")});
+ c.addEventListener("pointerleave",function(){f.style.setProperty("--ry","0deg");f.style.setProperty("--rx","0deg")});
+});
+$("back").onclick=function(e){
+ wipeAt(e,$("back"));app.classList.remove("enter");app.classList.add("exit");
+ setTimeout(function(){app.hidden=true;app.classList.remove("exit");home.hidden=false;home.classList.remove("leaving","in");document.querySelectorAll(".c3d").forEach(function(c){c.classList.remove("picked")});void home.offsetWidth;home.classList.add("in");window.scrollTo(0,0);wipeEnd()},D);
+};
+function pop(){
+ var R=$("res");R.classList.remove("reveal");void R.offsetWidth;R.classList.add("reveal");
+ R.querySelectorAll(".big,.stats b").forEach(function(el){
+  var v=parseInt(el.textContent.replace(/\D/g,""),10);if(!isFinite(v)||RM)return;
+  var t0=performance.now();
+  (function f(t){var k=Math.min(1,(t-t0)/900),e=1-Math.pow(1-k,3);el.textContent=fmt(k<1?v*e:v);if(k<1)requestAnimationFrame(f)})(t0);
+ });
+ R.scrollIntoView({behavior:RM?"auto":"smooth",block:"nearest"});
+}
+document.addEventListener("pointerdown",function(e){
+ var b=e.target.closest&&e.target.closest("button.primary,.seg button,.back");if(!b)return;
+ var r=b.getBoundingClientRect(),s=document.createElement("span"),d=Math.max(r.width,r.height)*2;
+ s.className="rip";s.style.cssText="width:"+d+"px;height:"+d+"px;left:"+(e.clientX-r.left-d/2)+"px;top:"+(e.clientY-r.top-d/2)+"px";
+ b.appendChild(s);setTimeout(function(){s.remove()},650);
+});
+document.querySelectorAll(".c3d").forEach(function(c){var f=c.firstElementChild;c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect();f.style.setProperty("--gx",((e.clientX-r.left)/r.width*100)+"%");f.style.setProperty("--gy",((e.clientY-r.top)/r.height*100)+"%")})});
+var carnet=$("carnet");
+function openCarnet(card,e){
+ wipeAt(e,card);home.classList.add("leaving");
+ setTimeout(function(){home.hidden=true;carnet.hidden=false;carnet.classList.remove("exit");carnet.classList.add("enter");window.scrollTo(0,0);wipeEnd()},D);
+}
+$("back2").onclick=function(e){
+ wipeAt(e,$("back2"));carnet.classList.remove("enter");carnet.classList.add("exit");
+ setTimeout(function(){carnet.hidden=true;carnet.classList.remove("exit");home.hidden=false;home.classList.remove("leaving","in");void home.offsetWidth;home.classList.add("in");window.scrollTo(0,0);wipeEnd()},D);
+};
+var KEY="lebonprix_carnet_v1",cars=[];
+try{cars=JSON.parse(localStorage.getItem(KEY)||"[]")||[]}catch(x){cars=[]}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(cars))}catch(x){$("cmsg").textContent="Enregistrement impossible sur cet appareil."}}
+function cr(){
+ var inv=0,marge=0,sold=0,stock=0;
+ cars.forEach(function(c){var cost=c.a+c.f;if(c.v!=null){marge+=c.v-cost;sold+=cost}else{inv+=cost;stock++}});
+ $("cstats").innerHTML=[["En stock ("+stock+")",fmt(inv)],["Marge réalisée",fmt(marge)],["Rentabilité",sold?(marge/sold*100).toFixed(1).replace(".",",")+" %":"–"]].map(function(s){return "<div><b>"+s[1]+"</b><span>"+s[0]+"</span></div>"}).join("");
+ $("clist").innerHTML=cars.length?cars.slice().reverse().map(function(c){
+  var cost=c.a+c.f,isSold=c.v!=null;
+  return '<div class="card2"><div class="line"><b>'+esc(c.m)+'</b><button type="button" data-act="del" data-id="'+c.id+'">×</button></div><p class="note" style="margin:2px 0 8px">Achetée '+fmt(c.a)+(c.f?" + "+fmt(c.f)+" de frais":"")+'</p>'+(isSold?'<div class="verdict '+(c.v-cost>0?"good":"bad")+'" style="margin:0">Vendue '+fmt(c.v)+' · marge '+fmt(c.v-cost)+'</div>':'<div class="grid"><input type="number" inputmode="numeric" placeholder="Prix de vente (€)" data-sell="'+c.id+'"><button type="button" data-act="sell" data-id="'+c.id+'">Vendue</button></div>')+'</div>';
+ }).join(""):'<p class="note">Aucune voiture pour l’instant.</p>';
+}
+$("cadd").onclick=function(){
+ var m=$("cm").value.trim(),a=num("ca");
+ if(!check(["cm","ca","cf"])||!(a>0)){$("cmsg").textContent="Remplis les champs en rouge.";if(!(a>0))$("ca").classList.add("invalid");return}
+ cars.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),m:m,a:a,f:num("cf"),v:null,d:new Date().toISOString().slice(0,10)});
+ save();$("cm").value="";$("ca").value="";$("cf").value="0";$("cmsg").textContent="";cr();
+};
+$("clist").onclick=function(e){
+ var b=e.target.closest("button[data-act]");if(!b)return;
+ var id=b.getAttribute("data-id"),act=b.getAttribute("data-act");
+ if(act==="sell"){var i=$("clist").querySelector('input[data-sell="'+id+'"]'),v=parseFloat(i.value);if(i.value===""||!(v>=0)){i.classList.add("invalid");return}cars.forEach(function(c){if(c.id===id)c.v=v});save();cr()}
+ else if(act==="del"){if(b.dataset.arm){cars=cars.filter(function(c){return c.id!==id});save();cr()}else{b.dataset.arm="1";b.textContent="Supprimer ?";setTimeout(function(){b.dataset.arm="";b.textContent="×"},2500)}}
+};
+cr();
+home.classList.add("in");
+setMode("m");
+})();
+</script>
+</body>
+</html>
